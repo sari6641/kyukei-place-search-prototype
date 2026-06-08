@@ -1,0 +1,37 @@
+
+body{background:#ececec;font-family:sans-serif;display:flex;justify-content:center}
+.phone{width:320px;background:white;border:8px solid #000;border-radius:35px;padding:15px}
+.header{text-align:left;font-size:30px;margin-bottom:8px}
+button{border:none;background:#e8e8e8;padding:10px 29px;border-radius:14px;margin:3px;cursor:pointer}
+.location,#status{margin-top:10px;font-weight:bold}
+svg{width:100%;height:auto}
+
+.location{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.icon{
+  width:24px;
+  height:24px;
+}
+
+.location-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  border:none;
+  background:#e8e8e8;
+
+  padding:10px 15px;
+  border-radius:14px;
+
+  cursor:pointer;
+}
+
+.icon{
+  width:24px;
+  height:24px;
+}

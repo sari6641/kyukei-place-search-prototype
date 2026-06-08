@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seat Finder SVG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="phone">
+<div class="header"><span id="floor">3F</span></div>
+
+
+<svg id="map" viewBox="0 0 300 380">
+
+  <!-- 外枠 -->
+  <rect
+    x="10"
+    y="10"
+    width="280"
+    height="360"
+    rx="20"
+    ry="20"
+    fill="#efefef"
+    stroke="#333"
+    stroke-width="2"
+  />
+
+  <!-- フロアごとの壁 -->
+  <g id="walls"></g>
+
+  <!-- 座席 -->
+  <g id="seats"></g>
+
+</svg>
+
+
+<h4>校舎選択</h4>
+<button class="location-btn" onclick="changeBuilding()">
+  <img src="map-icon.png" alt="マップ" class="icon">
+  <span id="building">さつき校舎</span>
+</button>
+
+<h4>Floor選択</h4>
+<div id="floors"></div>
+
+<div id="status"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
