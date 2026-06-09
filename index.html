@@ -1,51 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Seat Finder SVG</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seat Finder SVG - Advanced</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="phone">
-<div class="header"><span id="floor">3F</span></div>
 
+  <div class="phone">
+    <div class="header"><span id="floor">3F</span></div>
 
-<svg id="map" viewBox="0 0 300 380">
+    <div class="map-controls">
+      <button onclick="zoomMap(1.2)">➕</button>
+      <button onclick="zoomMap(0.8)">➖</button>
+      <button onclick="resetMap()"><img src="houi.png" alt="マップ" class="icon"></button>
+    </div>
 
-  <!-- 外枠 -->
-  <rect
-    x="10"
-    y="10"
-    width="280"
-    height="360"
-    rx="20"
-    ry="20"
-    fill="#efefef"
-    stroke="#333"
-    stroke-width="2"
-  />
+    <div id="map-container">
+      <svg id="map" viewBox="0 0 300 380">
+        <g id="map-viewport">
+          <g id="walls"></g>
+          
+          <g id="areas"></g>
+          
+          <g id="seats"></g>
+        </g>
+      </svg>
+    </div>
 
-  <!-- フロアごとの壁 -->
-  <g id="walls"></g>
+    <h4>校舎選択</h4>
+    <button class="location-btn" onclick="changeBuilding()">
+      <img src="map-icon.png" alt="マップ" class="icon">
+      <span id="building">さつき校舎</span>
+    </button>
 
-  <!-- 座席 -->
-  <g id="seats"></g>
+    <h4>Floor選択</h4>
+    <div id="floors" class="floor-buttons"></div>
 
-</svg>
+    <div id="status"></div>
+  </div>
 
-
-<h4>校舎選択</h4>
-<button class="location-btn" onclick="changeBuilding()">
-  <img src="map-icon.png" alt="マップ" class="icon">
-  <span id="building">さつき校舎</span>
-</button>
-
-<h4>Floor選択</h4>
-<div id="floors"></div>
-
-<div id="status"></div>
-</div>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
