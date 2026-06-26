@@ -56,7 +56,7 @@ svg {
 .map-controls {
   position: absolute;
   right: 25px;
-  top: 70px;
+  top: 80px;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -117,4 +117,24 @@ button {
   margin-top: 15px;
   font-weight: bold;
   font-size: 14px;
+}
+
+/* ヘッダーのレイアウト調整 */
+.header {
+  display: flex;
+  align-items: center; /* 縦の中央で揃える */
+  justify-content: space-between; /* ロゴを左、テキストを右(または中央)に配置 */
+  padding: 10px 10px; /* 内側の余白をお好みで調整 */
+}
+
+/* ロゴ画像のサイズ調整 */
+.logo {
+  height: 30px; /* ヘッダーに合わせて高さを調整 */
+  width: auto;  /* 縦横比を維持 */
+}
+
+/* 階数表示のデザイン（必要に応じて） */
+#floor {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
