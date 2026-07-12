@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelaXpot - お知らせ</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 画面全体のレイアウト調整 */
+    .phone {
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      box-sizing: border-box;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+    }
+
+    /* お知らせタイトル */
+    .notice-header {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      border-bottom: 1px solid #999;
+      padding-bottom: 5px;
+      margin-bottom: 25px;
+      width: fit-content;
+      min-width: 120px;
+    }
+
+    /* お知らせリスト部分 */
+    .notice-list {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* アラートアイテム */
+    .alert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .alert-icon {
+      font-size: 20px;
+      margin-top: 2px;
+    }
+
+    .alert-content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .alert-title {
+      font-size: 20px;
+      color: #555;
+      letter-spacing: 1px;
+    }
+
+    .alert-desc {
+      font-size: 20px;
+      color: #555;
+      padding-left: 10px; /* 少しインデント */
+    }
+
+    /* フッター（戻るボタン配置用） */
+    .footer {
+      display: flex;
+      justify-content: flex-end; /* ラフ画に合わせて右下に配置 */
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .back-btn {
+      background: #fff;
+      border: 2px solid #999;
+      padding: 10px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+    <!-- ヘッダー部分 -->
+    <div class="notice-header">
+      お知らせ
+    </div>
+
+    <!-- お知らせ内容 -->
+    <div class="notice-list">
+      
+      <div class="alert-item">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-content">
+          <div class="alert-title">KAEDE１階</div>
+          <div class="alert-desc">現在利用不可</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- フッター部分 -->
+    <div class="footer">
+      <button class="back-btn" onclick="location.href='home.html'">戻る</button>
+    </div>
+  </div>
+
+</body>
+</html>

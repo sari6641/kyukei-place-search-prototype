@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelaXpot - 一覧</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 一覧画面用のスタイル */
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .page-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    /* 戻るボタン */
+    .back-btn {
+      background: #e8e8e8;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* アコーディオン（建物名）ボタン */
+    .accordion {
+      background-color: #fff;
+      color: #333;
+      cursor: pointer;
+      padding: 15px 20px;
+      width: 100%;
+      border: 2px solid #ccc;
+      border-radius: 15px;
+      text-align: left;
+      outline: none;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    
+    .accordion:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* 矢印アイコン */
+    .accordion::after {
+      content: '◁';
+      font-size: 16px;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+
+    /* 開いた時のスタイル */
+    .accordion.active {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+    .accordion.active::after {
+      transform: rotate(-90deg);
+    }
+
+    /* パネル（階数リスト） */
+    .panel {
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      border-radius: 0 0 15px 15px;
+      margin-bottom: 10px;
+      border: 2px solid transparent; /* 初期状態では枠線なし */
+      border-top: none;
+      box-sizing: border-box;
+    }
+
+    /* 階数ボタンのリスト */
+    .floor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 15px 20px 15px;
+    }
+
+    /* 階数ボタン */
+    .floor-btn {
+      background: none;
+      border: none;
+      padding: 5px 10px;
+      text-align: left;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+    
+    .floor-btn:hover {
+      color: #6acb86;
+    }
+
+    .floor-btn::before {
+      content: "└";
+      margin-right: 15px;
+      color: #999;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+    <!-- ヘッダー部分 -->
+    <div class="list-header">
+      <div class="page-title">一覧</div>
+      <button class="back-btn" onclick="location.href='home.html'">戻る</button>
+    </div>
+
+    <!-- ASUNARO -->
+    <button class="accordion">ASUNARO</button>
+    <div class="panel">
+      <div class="floor-list">
+        <button class="floor-btn" onclick="alert('準備中です')">4階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">3階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">2階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">1階</button>
+      </div>
+    </div>
+
+    <!-- KAEDE -->
+    <button class="accordion">KAEDE</button>
+    <div class="panel">
+      <div class="floor-list">
+        <button class="floor-btn" onclick="alert('準備中です')">6階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">5階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">4階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">3階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">2階</button>
+        <button class="floor-btn" onclick="alert('準備中です')">1階</button>
+      </div>
+    </div>
+
+    <!-- SATUKI -->
+    <button class="accordion" id="satuki-acc">SATUKI</button>
+    <div class="panel">
+      <div class="floor-list">
+        <!-- SATUKIのボタンは実際にマップ（index.html）へ遷移 -->
+        <button class="floor-btn" onclick="location.href='index.html'">4階</button>
+        <button class="floor-btn" onclick="location.href='index.html'">3階</button>
+        <button class="floor-btn" onclick="location.href='index.html'">2階</button>
+        <button class="floor-btn" onclick="location.href='index.html'">1階</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // アコーディオンの開閉制御
+    var acc = document.getElementsByClassName("accordion");
+    
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        // クリックした要素のクラスを切り替え
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        
+        if (panel.style.maxHeight) {
+          // 閉じる
+          panel.style.maxHeight = null;
+          panel.style.borderColor = "transparent";
+        } else {
+          // 開く (余裕を持たせたscrollHeightを指定)
+          panel.style.maxHeight = panel.scrollHeight + "px";
+          panel.style.borderColor = "#ccc";
+        }
+      });
+    }
+
+    // 初期状態で「SATUKI」を開いておく（ラフ画の表現に合わせる）
+    window.onload = function() {
+      const satukiAcc = document.getElementById("satuki-acc");
+      satukiAcc.click();
+    };
+  </script>
+</body>
+</html>

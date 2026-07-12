@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelaXpot - マップ検索</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* マップ検索画面用のスタイル */
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .page-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .back-btn {
+      background: #e8e8e8;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* キャンパスマップ領域 */
+    .campus-map-container {
+      position: relative;
+      width: 100%;
+      height: 460px; /* スマホ画面に収まる程度の高さ */
+      background-color: #f7f7f7;
+      border: 4px solid #000;
+      border-radius: 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* 実際のマップ画像用（ユーザーが差し替え可能） */
+    .campus-bg-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      /* 自分で画像を入れる場合、ここを display: block; に変更してください */
+      display: none; 
+    }
+
+    /* プロトタイプ用のSVG背景（ダミー線画） */
+    .prototype-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    /* 写真ボタン（ピン） */
+    .building-pin {
+      position: absolute;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .building-pin:hover {
+      transform: scale(1.05);
+    }
+
+    /* 風景写真 */
+    .building-photo {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      object-fit: cover;
+      background-color: #ddd; /* 写真がない場合のグレー背景 */
+      text-align: center;
+      line-height: 65px; /* altテキストを中央に */
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* 校舎名ラベル */
+    .building-name {
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 3px 8px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* 各ピンの配置位置（ラフ画を参考に配置） */
+    .pin-satuki {
+      top: 30px;
+      right: 20px;
+    }
+    
+    .pin-kaede {
+      top: 180px;
+      right: 15px;
+    }
+    
+    .pin-asunaro {
+      bottom: 40px;
+      right: 35px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+    <!-- ヘッダー部分 -->
+    <div class="map-header">
+      <div class="page-title">マップ</div>
+      <button class="back-btn" onclick="location.href='home.html'">戻る</button>
+    </div>
+
+    <!-- キャンパスマップ本体 -->
+    <div class="campus-map-container">
+      
+      <!-- 【1. 背景となる学校敷地のマップ写真】 -->
+      <!-- 画像ファイルを用意したら、srcにパスを書き、CSSの.campus-bg-img を display: block; にしてください -->
+      <img src="campus_map.png" alt="敷地マップ" class="campus-bg-img" id="campus-img">
+
+      <!-- 画像が設定されるまでのプロトタイプ用線画（ラフ画風） -->
+      <svg class="prototype-svg" viewBox="0 0 300 460" id="dummy-svg">
+        <!-- 敷地の輪郭 -->
+        <path d="M 20,40 L 90,20 L 160,30 L 180,120 L 200,180 L 180,260 L 210,320 L 180,440 L 40,440 L 20,380 L 50,300 L 10,220 Z" fill="#e9f5eb" stroke="#ccc" stroke-width="2"/>
+        
+        <!-- SATUKI 建物シルエットと吹き出しの線 -->
+        <rect x="100" y="90" width="35" height="15" fill="#fff" stroke="#999" transform="rotate(-15 100 90)"/>
+        <line x1="125" y1="90" x2="200" y2="70" stroke="#999" stroke-width="2" stroke-dasharray="3"/>
+
+        <!-- KAEDE 建物シルエットと吹き出しの線 -->
+        <path d="M 90,200 L 130,200 L 130,220 L 120,220 L 120,210 L 100,210 L 100,220 L 90,220 Z" fill="#fff" stroke="#999"/>
+        <line x1="130" y1="210" x2="205" y2="210" stroke="#999" stroke-width="2" stroke-dasharray="3"/>
+
+        <!-- ASUNARO 建物シルエットと吹き出しの線 -->
+        <path d="M 100,310 L 130,310 L 130,335 L 120,335 L 120,320 L 110,320 L 110,335 L 100,335 Z" fill="#fff" stroke="#999"/>
+        <line x1="130" y1="320" x2="190" y2="340" stroke="#999" stroke-width="2" stroke-dasharray="3"/>
+      </svg>
+
+      <!-- 【2. 各校舎の風景写真ボタン】 -->
+
+      <!-- SATUKI 写真ボタン -->
+      <div class="building-pin pin-satuki" onclick="location.href='index.html'">
+        <!-- 写真を用意したら src="satuki_photo.jpg" のように変更してください -->
+        <img src="satuki_photo.jpg" alt="写真" class="building-photo">
+        <div class="building-name">SATUKI</div>
+      </div>
+
+      <!-- KAEDE 写真ボタン -->
+      <div class="building-pin pin-kaede" onclick="alert('準備中です')">
+        <!-- 写真を用意したら src="kaede_photo.jpg" のように変更してください -->
+        <img src="kaede_photo.jpg" alt="写真" class="building-photo">
+        <div class="building-name">KAEDE</div>
+      </div>
+
+      <!-- ASUNARO 写真ボタン -->
+      <div class="building-pin pin-asunaro" onclick="alert('準備中です')">
+        <!-- 写真を用意したら src="asunaro_photo.jpg" のように変更してください -->
+        <img src="asunaro_photo.jpg" alt="写真" class="building-photo">
+        <div class="building-name">ASUNARO</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // 実際の背景画像が表示された場合、プロトタイプのダミー線画を非表示にするための処理
+    window.addEventListener('DOMContentLoaded', () => {
+      const campusImg = document.getElementById('campus-img');
+      const dummySvg = document.getElementById('dummy-svg');
+      if (window.getComputedStyle(campusImg).display === 'block') {
+        dummySvg.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

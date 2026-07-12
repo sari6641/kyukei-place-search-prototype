@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelaXpot - お気に入り</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 画面全体のレイアウト調整 */
+    .phone {
+      display: flex;
+      flex-direction: column;
+      height: 600px; /* スマホ風コンテナの高さを固定してスクロール可能にする場合 */
+      box-sizing: border-box;
+    }
+
+    /* お気に入り画面用のスタイル */
+    .fav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .page-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    /* お気に入り追加ボタン */
+    .add-btn {
+      background: #6acb86; /* アプリのテーマカラー（緑）に合わせる */
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* お気に入りリストコンテナ */
+    .fav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex-grow: 1;
+      overflow-y: auto; /* 数が増えたらスクロールできるように */
+      padding-bottom: 10px;
+    }
+
+    /* お気に入りカード（ボタン） */
+    .fav-card {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 15px;
+      padding: 15px 20px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin: 0;
+    }
+    
+    .fav-card:hover {
+      border-color: #333;
+      background-color: #f9f9f9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .fav-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 1px;
+    }
+
+    .fav-status {
+      font-size: 15px;
+      color: #666;
+      font-weight: bold;
+    }
+
+    /* 空席ありの強調色 */
+    .status-ok {
+      color: #6acb86;
+    }
+
+    /* フッター（戻るボタン配置用） */
+    .footer {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .back-btn {
+      background: #e8e8e8;
+      border: none;
+      padding: 10px 40px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333;
+      font-size: 16px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+    <!-- ヘッダー部分 -->
+    <div class="fav-header">
+      <div class="page-title">お気に入り</div>
+      <button class="add-btn" onclick="alert('お気に入り追加機能は準備中です')">＋ 追加</button>
+    </div>
+
+    <!-- お気に入り一覧 -->
+    <div class="fav-list">
+      
+      <!-- SATUKI 3F のボタン -->
+      <button class="fav-card" onclick="goToSatuki3F()">
+        <div class="fav-name">SATUKI 3F</div>
+        <div class="fav-status">状況：<span class="status-ok">空席あり</span></div>
+      </button>
+      
+      <!-- 比較用・プロトタイプとしてダミーを一つ置いておく（不要なら削除してください） -->
+      <!--
+      <button class="fav-card" onclick="alert('準備中です')">
+        <div class="fav-name">KAEDE 2F</div>
+        <div class="fav-status">状況：<span style="color:#ef6d6d;">満席</span></div>
+      </button>
+      -->
+
+    </div>
+
+    <!-- フッター部分 -->
+    <div class="footer">
+      <button class="back-btn" onclick="location.href='home.html'">戻る</button>
+    </div>
+  </div>
+
+  <script>
+    function goToSatuki3F() {
+      // index.htmlへ遷移します。
+      // ※プロトタイプのため index.html?floor=3F とパラメータを付けていますが、
+      // 完全に3階を初期表示するには index.html 側の script.js でこのパラメータを読み取る処理が必要です。
+      // （現状のままでもマップ画面には飛びます）
+      location.href = 'index.html?floor=3F';
+    }
+  </script>
+</body>
+</html>
