@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelaXpot</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png">
+</head>
+<body>
+
+  <div class="phone">
+    <div class="header">
+      <!-- <a>タグで画像を囲んで home.html へリンクさせます -->
+      <a href="index.html">
+        <img src="logo.png" alt="ロゴ" class="logo">
+      </a>
+      <span id="floor">3F</span>
+    </div>
+
+    <div class="map-controls">
+      <button onclick="zoomMap(1.2)">➕</button>
+      <button onclick="zoomMap(0.8)">➖</button>
+      <button onclick="resetMap()"><img src="syokiiti.png" alt="マップ" class="icon"></button>
+    </div>
+
+    <div id="map-container">
+      <svg id="map" viewBox="0 0 300 380">
+        <g id="map-viewport">
+          <g id="walls"></g>
+          
+          <g id="areas"></g>
+          
+          <g id="seats"></g>
+        </g>
+      </svg>
+    </div>
+
+    <h4>校舎選択</h4>
+    <button class="location-btn" onclick="changeBuilding()">
+      <img src="map-icon.png" alt="マップ" class="icon">
+      <span id="building">さつき校舎</span>
+    </button>
+
+    <h4>Floor選択</h4>
+    <div id="floors" class="floor-buttons"></div>
+
+    <div id="status"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
