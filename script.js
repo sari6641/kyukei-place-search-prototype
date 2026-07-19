@@ -31,9 +31,9 @@ const maps = {
       <image href="stair.png" x="135" y="262" width="15" height="15" />
     `,
     seats: [
-      [120, 160], [135, 170], [120, 180],
-      [225, 195], [225, 220], [225, 245], 
-      [205, 245], [185, 250], [165, 250], 
+      [120, 160, true], [135, 170, true], [120, 180],
+      [225, 195, true], [225, 220], [225, 245], 
+      [205, 245, true], [185, 250], [165, 250], 
       [225, 270], [205, 270]
     ]
   },
@@ -64,11 +64,11 @@ const maps = {
     `,
     seats: [
       // 壁の右シフトに合わせて座席位置も微調整
-      [130, 80], [170, 65],
-      [125, 275], [125, 300], [125, 325],
-      [165, 275], [165, 300], [165, 325],
-      [125, 355], [145, 355], [165, 355],
-      [235, 130], [235, 190], [235, 255]
+      [130, 80], [170, 65, true],
+      [125, 275, true], [125, 300, true], [125, 325, true],
+      [165, 275, true], [165, 300, true], [165, 325, true],
+      [125, 355, true], [145, 355, true], [165, 355, true],
+      [235, 130, true], [235, 190,], [235, 255, true]
     ]
   },
   '4F': {
@@ -104,32 +104,40 @@ function renderSeats() {
   let free = 0;
   let totalSeats = mapData.seats.length;
 
-  mapData.seats.forEach(([x, y]) => {
+  mapData.seats.forEach(([x, y, hasCharge]) => {
     const available = Math.random() > 0.45;
     if (available) free++;
 
     const color = available ? '#6acb86' : '#ef6d6d';
+    // まず座席（四角形）を描画する
     seatsHTML += `<rect x="${x}" y="${y}" width="12" height="12" rx="2" fill="${color}" />`;
+
+    // もし hasCharge が true なら、その上に雷マークを重ねる
+    if (hasCharge) {
+      // 12×12の四角形の中に少し小さく(8×8)中央に配置する調整をしています。
+      // 大きさや位置を変えたい場合は、x, y, width, height の数値を微調整してください。
+      seatsHTML += `<image href="biribirima-ku.png" x="${x}" y="${y}" width="12" height="12" />`;
+    }
   });
   document.getElementById('seats').innerHTML = seatsHTML;
 
   const occupiedSeats = totalSeats - free;
   const usageRate = totalSeats > 0 ? (occupiedSeats / totalSeats) : 0; 
 
-  if (mapData.restArea) {
-    let areaColor = 'rgba(106, 203, 134, 0.3)'; 
-    if (usageRate > 0.7) areaColor = 'rgba(239, 109, 109, 0.4)';  
-    else if (usageRate > 0.4) areaColor = 'rgba(244, 208, 63, 0.4)'; 
+  // if (mapData.restArea) {
+  //   let areaColor = 'rgba(106, 203, 134, 0.3)'; 
+  //   if (usageRate > 0.7) areaColor = 'rgba(239, 109, 109, 0.4)';  
+  //   else if (usageRate > 0.4) areaColor = 'rgba(244, 208, 63, 0.4)'; 
 
-    const a = mapData.restArea;
-    document.getElementById('areas').innerHTML = `
-      <rect x="${a.x}" y="${a.y}" width="${a.width}" height="${a.height}" 
-            fill="${areaColor}" stroke="#333" stroke-dasharray="4" rx="5"/>
-      <text x="${a.x + 5}" y="${a.y + 20}" font-size="12" font-weight="bold" fill="#333">${a.name}</text>
-    `;
-  } else {
-    document.getElementById('areas').innerHTML = ''; 
-  }
+  //   const a = mapData.restArea;
+  //   document.getElementById('areas').innerHTML = `
+  //     <rect x="${a.x}" y="${a.y}" width="${a.width}" height="${a.height}" 
+  //           fill="${areaColor}" stroke="#333" stroke-dasharray="4" rx="5"/>
+  //     <text x="${a.x + 5}" y="${a.y + 20}" font-size="12" font-weight="bold" fill="#333">${a.name}</text>
+  //   `;
+  // } else {
+  //   document.getElementById('areas').innerHTML = ''; 
+  // }
 
   document.getElementById('status').textContent = `全体の空席数: ${free}席 / 満席率: ${Math.round(usageRate * 100)}%`;
   document.getElementById('floor').textContent = floor;
@@ -200,5 +208,24 @@ function changeBuilding() {
   };
   document.getElementById('floors').appendChild(btn);
 });
+
+// --- 写真ボードの表示・非表示切り替え処理 ---
+function togglePhotoBoard() {
+  const board = document.getElementById('photo-board');
+  board.classList.toggle('hidden');
+}
+
+// ボード上でのドラッグ操作がマップの移動に干渉しないようにする
+const photoBoard = document.getElementById('photo-board');
+if (photoBoard) {
+  // PC用のマウスイベントをブロック
+  photoBoard.addEventListener('mousedown', (e) => {
+    e.stopPropagation();
+  });
+  // スマホ用のタッチイベントをブロック
+  photoBoard.addEventListener('touchstart', (e) => {
+    e.stopPropagation();
+  });
+}
 
 renderSeats();

@@ -36,6 +36,44 @@
       </svg>
     </div>
 
+    <div id="legend-board">
+      <div class="legend-item">
+        <!-- 青四角 -->
+        <div class="legend-square blue"></div>
+        <span>空席</span>
+      </div>
+      <div class="legend-item">
+        <!-- 赤四角 -->
+        <div class="legend-square red"></div>
+        <span>満席</span>
+      </div>
+      <div class="legend-item">
+        <!-- 雷マーク（自分で用意した画像を指定してください） -->
+        <img src="biribirima-ku.png" alt="充電" class="legend-icon">
+        <span>充電スポット</span>
+      </div>
+    </div>
+
+    <!-- 写真ボタン -->
+      <button id="photo-btn" onclick="togglePhotoBoard()">
+        <!-- 自分で用意するボタン用の画像を指定してください -->
+        <img src="camerama-ku.png" alt="写真">
+      </button>
+
+      <!-- 写真ボード (最初は .hidden で隠しておく) -->
+      <div id="photo-board" class="hidden">
+        <div class="board-header">
+          <span style="font-weight: bold; color: #333;">普段の様子</span>
+          <button class="close-btn" onclick="togglePhotoBoard()">✖</button>
+        </div>
+        <div class="gallery">
+          <!-- ここに載せたい写真を追加してください -->
+          <img src="sample1.jpg" alt="写真1">
+          <img src="sample2.jpg" alt="写真2">
+          <img src="sample3.jpg" alt="写真3">
+        </div>
+      </div>
+
     <h4>校舎選択</h4>
     <button class="location-btn" onclick="changeBuilding()">
       <img src="map-icon.png" alt="マップ" class="icon">
