@@ -145,7 +145,7 @@ button {
 /* --- 写真ボタンのデザイン --- */
 #photo-btn {
   position: absolute;
-  bottom: 365px;
+  bottom: 370px;
   right: 20px;
   width: 35px;
   height: 35px;
@@ -228,7 +228,7 @@ button {
 #legend-board {
   position: absolute;
   /* 写真ボタン(bottom: 270px)の少し上に配置 */
-  bottom: 270px; 
+  bottom: 280px; 
   right: 20px;
   background-color: rgba(255, 255, 255, 0.9); /* 少し透ける白背景 */
   border: 1px solid #ccc;
