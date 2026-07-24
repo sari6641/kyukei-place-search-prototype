@@ -178,6 +178,7 @@ let isDragging = false;
 let startX, startY;
 const container = document.getElementById('map-container');
 
+// --- PC用（マウスイベント） ---
 container.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - translateX;
@@ -192,6 +193,31 @@ window.addEventListener('mousemove', (e) => {
 });
 
 window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+// --- スマホ用（タッチイベント） ---
+container.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  // タッチ位置は e.touches[0] に格納されている
+  startX = e.touches[0].clientX - translateX;
+  startY = e.touches[0].clientY - translateY;
+});
+
+window.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  
+  // スマホの画面自体がスクロールするのを防ぐ
+  if (e.cancelable) {
+    e.preventDefault();
+  }
+
+  translateX = e.touches[0].clientX - startX;
+  translateY = e.touches[0].clientY - startY;
+  applyTransform();
+}, { passive: false }); // preventDefault() を機能させるために必須
+
+window.addEventListener('touchend', () => {
   isDragging = false;
 });
 

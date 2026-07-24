@@ -40,6 +40,9 @@ body {
 
   background: #efefef;   /* マップの背景色をコンテナ側に設定 */
   cursor: grab;
+
+  /* ★ スマホでのスクロールやピンチズームなど、ブラウザのデフォルト操作を無効化する ★ */
+  touch-action: none;
 }
 
 #map-container:active {
